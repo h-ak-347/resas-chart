@@ -1,8 +1,9 @@
 import { useState, useEffect, MouseEvent } from 'react';
 import axios from 'axios';
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import 'normalize.css';
 import './App.scss';
+import SelectBox from './components/selectbox';
+import Chart from './components/chart';
 
 const App = () => {
   type ChartData = { [key: string]: number | string }[]; //TODO: もう少し厳密に定義したい
@@ -97,60 +98,8 @@ const App = () => {
 
   return (
     <>
-      <div>{selectedPrefectures.map((item) => item.prefName)}</div>
-      {prefectures && (
-        <ul>
-          {prefectures.map((item, index) => (
-            <li key={index}>
-              <label htmlFor={`prefCheckbox${item.prefCode}`}>
-                <input
-                  type="checkbox"
-                  name={item.prefName}
-                  value={item.prefCode}
-                  id={`prefCheckbox${item.prefCode}`}
-                  onClick={clickHandler}
-                  defaultChecked={defaultPrefectures.some((defaultItem) => defaultItem.prefCode === item.prefCode)}
-                />
-                {item.prefName}
-              </label>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div style={{ width: '100vw', height: '50vh' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            width={500}
-            height={300}
-            data={chartData}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 30,
-              bottom: 20,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="year"
-              label={{
-                value: '年',
-                offset: -15,
-                position: 'insideBottomRight',
-              }}
-            />
-            <YAxis
-              label={{ value: '人口数', offset: -10, angle: -90, position: 'insideLeft' }}
-              tickFormatter={(tick) => {
-                return new Intl.NumberFormat('ja-JP').format(tick);
-              }}
-            />
-            <Tooltip formatter={(value) => `${new Intl.NumberFormat('ja-JP').format(Number(value))}人`} />
-            {selectedPrefectures.length && selectedPrefectures.map((prefecture, index) => <Line key={index} dataKey={prefecture.prefName} />)}
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      {prefectures && <SelectBox selectedPrefectures={selectedPrefectures} prefectures={prefectures} clickHandler={clickHandler} />}
+      {chartData && <Chart selectedPrefectures={selectedPrefectures} chartData={chartData} />}
     </>
   );
 };
