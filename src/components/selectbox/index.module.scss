@@ -1,0 +1,111 @@
+.selectBox {
+  &__toggleButton {
+    position: relative;
+    width: 400px;
+    max-width: 100%;
+    margin: auto;
+    border-radius: 4px;
+    display: block;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 16px 40px 16px 20px;
+    color: inherit;
+
+    &::after {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      background: currentColor;
+      width: 1em;
+      height: 1em;
+      transform: translateY(-40%);
+      clip-path: polygon(0 0, 100% 0, 50% 80%);
+      content: '';
+    }
+
+    &:hover,
+    &:focus {
+      border-color: #222;
+      outline: none;
+    }
+  }
+  &__selected {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    display: block;
+    text-overflow: ellipsis;
+  }
+  &__modal {
+    opacity: 0;
+    pointer-events: none;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: table;
+    margin: auto;
+    width: 80vw;
+    height: 50vh;
+    border-radius: 4px;
+    background: rgba(#fff, 0.9);
+    border: 1px solid #ccc;
+    padding: 120px 80px;
+
+    &[data-is-show='true'] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+  &__closeButton {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 40%;
+    border-color: #fff;
+    background-color: #222;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      content: '';
+      border-radius: 2px;
+      height: 2px;
+      width: 60%;
+      background-color: #fff;
+    }
+
+    &::before {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:hover {
+      border-color: #222;
+    }
+  }
+  &__modalInner {
+    overflow: auto;
+  }
+  &__list {
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6em, calc((100% - 8px * 5) / 6)));
+    list-style: none;
+    gap: 24px 8px;
+  }
+  &__labelText {
+    margin-left: 8px;
+  }
+}

@@ -1,4 +1,5 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import s from './index.module.scss';
 
 type ChartProps = {
   selectedPrefectures: { prefCode: number; prefName: string }[];
@@ -7,7 +8,7 @@ type ChartProps = {
 
 const Chart = ({ selectedPrefectures, chartData }: ChartProps) => {
   return (
-    <div style={{ width: '100vw', height: '50vh' }}>
+    <div className={s['chart']}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
@@ -36,7 +37,8 @@ const Chart = ({ selectedPrefectures, chartData }: ChartProps) => {
             }}
           />
           <Tooltip formatter={(value) => `${new Intl.NumberFormat('ja-JP').format(Number(value))}人`} />
-          {selectedPrefectures.length && selectedPrefectures.map((prefecture, index) => <Line key={index} dataKey={prefecture.prefName} />)}
+          {selectedPrefectures.length &&
+            selectedPrefectures.map((prefecture, index) => <Line stroke="#12991c" key={index} dataKey={prefecture.prefName} />)}
         </LineChart>
       </ResponsiveContainer>
     </div>

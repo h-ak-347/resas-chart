@@ -1,3 +1,14 @@
+#root {
+  width: 100%;
+}
+
 body {
-  // background: #fff;
+  color-scheme: light;
+  background: #fff;
+  color: #444;
+  accent-color: #12991c;
+}
+
+.chartArea {
+  margin-top: 80px;
 }

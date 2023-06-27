@@ -99,7 +99,7 @@ const App = () => {
   return (
     <>
       {prefectures && <SelectBox selectedPrefectures={selectedPrefectures} prefectures={prefectures} clickHandler={clickHandler} />}
-      {chartData && <Chart selectedPrefectures={selectedPrefectures} chartData={chartData} />}
+      <div className="chartArea">{chartData && <Chart selectedPrefectures={selectedPrefectures} chartData={chartData} />}</div>
     </>
   );
 };
