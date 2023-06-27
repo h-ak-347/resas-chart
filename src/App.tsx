@@ -98,6 +98,7 @@ const App = () => {
 
   return (
     <>
+      <h1>都道府県別の人口推移</h1>
       {prefectures && <SelectBox selectedPrefectures={selectedPrefectures} prefectures={prefectures} clickHandler={clickHandler} />}
       <div className="chartArea">{chartData && <Chart selectedPrefectures={selectedPrefectures} chartData={chartData} />}</div>
     </>
