@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectBox should match to snapshot. 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="selectBox__toggleButton"
+      type="button"
+    >
+      <span
+        class="selectBox__selected"
+      >
+        北海道
+      </span>
+    </button>
+    <div
+      class="selectBox__modal"
+      data-is-show="false"
+      role="dialog"
+    >
+      <div
+        class="selectBox__modalInner"
+      >
+        <ul
+          class="selectBox__list"
+        >
+          <li>
+            <label
+              for="prefCheckbox1"
+            >
+              <input
+                checked=""
+                id="prefCheckbox1"
+                name="北海道"
+                type="checkbox"
+                value="1"
+              />
+              <span
+                class="selectBox__labelText"
+              >
+                北海道
+              </span>
+            </label>
+          </li>
+          <li>
+            <label
+              for="prefCheckbox2"
+            >
+              <input
+                id="prefCheckbox2"
+                name="青森県"
+                type="checkbox"
+                value="2"
+              />
+              <span
+                class="selectBox__labelText"
+              >
+                青森県
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <button
+        aria-label="close"
+        class="selectBox__closeButton"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

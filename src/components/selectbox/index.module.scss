@@ -38,6 +38,7 @@
     text-overflow: ellipsis;
   }
   &__modal {
+    visibility: hidden;
     opacity: 0;
     pointer-events: none;
     box-sizing: border-box;
@@ -56,6 +57,7 @@
     padding: 120px 80px;
 
     &[data-is-show='true'] {
+      visibility: visible;
       opacity: 1;
       pointer-events: auto;
     }

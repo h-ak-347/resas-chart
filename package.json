@@ -10,7 +10,15 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && prettier --write src",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      ".+\\.(css|styl|less|sass|scss)$": "jest-css-modules-transform"
+    }
   },
   "dependencies": {
     "axios": "^1.4.0",
@@ -21,18 +29,28 @@
     "sass": "^1.63.4"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.5.2",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react": "^4.0.0",
+    "babel-jest": "^29.5.0",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "jest": "^29.5.0",
+    "jest-css-modules-transform": "^4.4.2",
+    "jest-environment-jsdom": "^29.5.0",
+    "jest-transform-stub": "^2.0.0",
     "prettier": "^2.8.8",
+    "ts-jest": "^29.1.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.9"
   }

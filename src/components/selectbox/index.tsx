@@ -17,7 +17,7 @@ const SelectBox = ({ selectedPrefectures, prefectures, clickHandler }: SelectBox
           {selectedPrefectures.map((item, index) => (index === 0 ? item.prefName : `, ${item.prefName}`))}
         </span>
       </button>
-      <div className={s['selectBox__modal']} data-is-show={isModalShow}>
+      <div className={s['selectBox__modal']} data-is-show={isModalShow} role="dialog">
         <div className={s['selectBox__modalInner']}>
           <ul className={s['selectBox__list']}>
             {prefectures.map((item, index) => (
