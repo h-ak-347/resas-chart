@@ -1,9 +1,8 @@
 import { useState, useEffect, MouseEvent } from 'react';
 import axios from 'axios';
-import 'normalize.css';
-import './App.scss';
 import SelectBox from './components/selectbox';
 import Chart from './components/chart';
+import { ChakraProvider, Heading, Box } from '@chakra-ui/react';
 
 const App = () => {
   type ChartData = { [key: string]: number | string }[]; //TODO: もう少し厳密に定義したい
@@ -97,11 +96,15 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <h1>都道府県別の人口推移</h1>
-      {prefectures && <SelectBox selectedPrefectures={selectedPrefectures} prefectures={prefectures} clickHandler={clickHandler} />}
-      <div className="chartArea">{chartData && <Chart selectedPrefectures={selectedPrefectures} chartData={chartData} />}</div>
-    </>
+    <ChakraProvider>
+      <Box my={20}>
+        <Heading as={'h1'} textAlign={'center'} mb={10}>
+          都道府県別の人口推移
+        </Heading>
+        {prefectures && <SelectBox selectedPrefectures={selectedPrefectures} prefectures={prefectures} clickHandler={clickHandler} />}
+        <Box mt={20}>{chartData && <Chart selectedPrefectures={selectedPrefectures} chartData={chartData} />}</Box>
+      </Box>
+    </ChakraProvider>
   );
 };
 
