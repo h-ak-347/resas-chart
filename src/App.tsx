@@ -59,7 +59,7 @@ const App = () => {
       });
   }, []);
 
-  const updateSelectedPrefectures = (prefCode: number, prefName: string, isChecked: boolean) => {
+  const updateSelectedPrefectures = useCallback((prefCode: number, prefName: string, isChecked: boolean) => {
     if (isChecked) {
       setSelectedPrefectures((previousValue) => [...previousValue, { prefCode: prefCode, prefName: prefName }]);
     } else {
@@ -69,12 +69,12 @@ const App = () => {
         }),
       ]);
     }
-  };
+  }, []);
 
-  const clickHandler = (event: MouseEvent<HTMLInputElement>) => {
+  const clickHandler = useCallback((event: MouseEvent<HTMLInputElement>) => {
     updateSelectedPrefectures(Number(event.currentTarget.value), event.currentTarget.name, event.currentTarget.checked);
     if (event.currentTarget.checked) addData(Number(event.currentTarget.value), event.currentTarget.name);
-  };
+  }, []);
 
   useEffect(() => {
     axios
