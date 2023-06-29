@@ -1,21 +1,27 @@
-import { useState, useEffect, MouseEvent } from 'react';
+import { Box, ChakraProvider, Heading } from '@chakra-ui/react';
 import axios from 'axios';
-import SelectBox from './components/selectbox';
+import type { MouseEvent } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import Chart from './components/chart';
-import { ChakraProvider, Heading, Box } from '@chakra-ui/react';
+import SelectBox from './components/selectbox';
 
 const App = () => {
   type ChartData = { [key: string]: number | string }[]; //TODO: もう少し厳密に定義したい
 
-  const defaultPrefectures = [
-    { prefCode: 13, prefName: '東京都' },
-    { prefCode: 27, prefName: '大阪府' },
-  ];
+  const defaultPrefectures = useMemo(
+    () => [
+      { prefCode: 13, prefName: '東京都' },
+      { prefCode: 27, prefName: '大阪府' },
+    ],
+    [],
+  );
+
   const [selectedPrefectures, setSelectedPrefectures] = useState([...defaultPrefectures]);
   const [prefectures, setPrefectures] = useState<{ prefCode: number; prefName: string }[]>();
   const [chartData, setChartData] = useState<ChartData>();
 
-  const addData = (prefCode: number, prefName: string) => {
+  const addData = useCallback((prefCode: number, prefName: string) => {
     axios
       // ↓開発用ダミーデータ参照↓
       // .get(`./dummyPopulationData${prefCode}.json`)
@@ -51,13 +57,13 @@ const App = () => {
       .catch((error) => {
         console.error(error);
       });
-  };
+  }, []);
 
   const updateSelectedPrefectures = (prefCode: number, prefName: string, isChecked: boolean) => {
     if (isChecked) {
       setSelectedPrefectures((previousValue) => [...previousValue, { prefCode: prefCode, prefName: prefName }]);
     } else {
-      setSelectedPrefectures((previousValue) => [
+      setSelectedPrefectures(() => [
         ...selectedPrefectures.filter((prefecture) => {
           return prefecture.prefCode !== prefCode;
         }),
@@ -92,19 +98,22 @@ const App = () => {
     //   .catch((error) => {
     //     console.error(error);
     //   });
+
     defaultPrefectures.forEach((prefecture) => addData(prefecture.prefCode, prefecture.prefName));
-  }, []);
+  }, [addData, defaultPrefectures]);
 
   return (
-    <ChakraProvider>
-      <Box my={20}>
-        <Heading as={'h1'} textAlign={'center'} mb={10}>
-          都道府県別の人口推移
-        </Heading>
-        {prefectures && <SelectBox selectedPrefectures={selectedPrefectures} prefectures={prefectures} clickHandler={clickHandler} />}
-        <Box mt={20}>{chartData && <Chart selectedPrefectures={selectedPrefectures} chartData={chartData} />}</Box>
-      </Box>
-    </ChakraProvider>
+    <div>
+      <ChakraProvider>
+        <Box my={20}>
+          <Heading as={'h1'} textAlign={'center'} mb={10}>
+            都道府県別の人口推移
+          </Heading>
+          {prefectures && <SelectBox selectedPrefectures={selectedPrefectures} prefectures={prefectures} clickHandler={clickHandler} />}
+          <Box mt={20}>{chartData && <Chart selectedPrefectures={selectedPrefectures} chartData={chartData} />}</Box>
+        </Box>
+      </ChakraProvider>
+    </div>
   );
 };
 

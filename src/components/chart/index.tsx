@@ -1,4 +1,5 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+
 import s from './index.module.scss';
 
 type ChartProps = {

@@ -1,34 +1,17 @@
 module.exports = {
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2020: true, node: true },
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  plugins: ['react-refresh', 'import/order'],
+  plugins: ['react-refresh', 'simple-import-sort', 'import'],
   rules: {
-    'import/order': [
-      'error',
-      {
-        groups: ['builtin', 'external', 'parent', 'sibling', 'index', 'object', 'type'],
-        pathGroups: [
-          {
-            pattern: '{react,react-dom/**,react-router-dom}',
-            group: 'builtin',
-            position: 'before',
-          },
-          {
-            pattern: '@src/**',
-            group: 'parent',
-            position: 'before',
-          },
-        ],
-        pathGroupsExcludedImportTypes: ['builtin'],
-        alphabetize: {
-          order: 'asc',
-        },
-        'newlines-between': 'always',
-      },
-    ],
     '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
     'react-refresh/only-export-components': 'warn',
+    // import sort rules
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-duplicates': 'error',
   },
 };

@@ -1,7 +1,10 @@
-global.ResizeObserver = require('resize-observer-polyfill');
 import '@testing-library/jest-dom';
-import Chart from './index.tsx';
+
 import { render } from '@testing-library/react';
+
+import Chart from './index.tsx';
+
+global.ResizeObserver = require('resize-observer-polyfill');
 
 const mockDefaultProps: React.ComponentProps<typeof Chart> = {
   selectedPrefectures: [{ prefCode: 1, prefName: '北海道' }],

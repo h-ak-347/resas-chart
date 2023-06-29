@@ -3061,6 +3061,11 @@ eslint-plugin-react-refresh@^0.3.4:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-refresh/-/eslint-plugin-react-refresh-0.3.5.tgz#0121e3f05f940250d3544bfaeff52e1c6adf4117"
   integrity sha512-61qNIsc7fo9Pp/mju0J83kzvLm0Bsayu7OQSLEoJxLDCBjIIyb87bkzufoOvdDxLkSlMfkF7UxomC4+eztUBSA==
 
+eslint-plugin-simple-import-sort@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-10.0.0.tgz#cc4ceaa81ba73252427062705b64321946f61351"
+  integrity sha512-AeTvO9UCMSNzIHRkg8S6c3RPy5YEwKWSQPx3DYghLedo2ZQxowPFLGDN1AZ2evfg6r6mjBSZSLxLFsWSu3acsw==
+
 eslint-plugin-unused-imports@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-2.0.0.tgz#d8db8c4d0cfa0637a8b51ce3fd7d1b6bc3f08520"
