@@ -59,22 +59,28 @@ const App = () => {
       });
   }, []);
 
-  const updateSelectedPrefectures = useCallback((prefCode: number, prefName: string, isChecked: boolean) => {
-    if (isChecked) {
-      setSelectedPrefectures((previousValue) => [...previousValue, { prefCode: prefCode, prefName: prefName }]);
-    } else {
-      setSelectedPrefectures(() => [
-        ...selectedPrefectures.filter((prefecture) => {
-          return prefecture.prefCode !== prefCode;
-        }),
-      ]);
-    }
-  }, []);
+  const updateSelectedPrefectures = useCallback(
+    (prefCode: number, prefName: string, isChecked: boolean) => {
+      if (isChecked) {
+        setSelectedPrefectures((previousValue) => [...previousValue, { prefCode: prefCode, prefName: prefName }]);
+      } else {
+        setSelectedPrefectures(() => [
+          ...selectedPrefectures.filter((prefecture) => {
+            return prefecture.prefCode !== prefCode;
+          }),
+        ]);
+      }
+    },
+    [selectedPrefectures],
+  );
 
-  const clickHandler = useCallback((event: MouseEvent<HTMLInputElement>) => {
-    updateSelectedPrefectures(Number(event.currentTarget.value), event.currentTarget.name, event.currentTarget.checked);
-    if (event.currentTarget.checked) addData(Number(event.currentTarget.value), event.currentTarget.name);
-  }, []);
+  const clickHandler = useCallback(
+    (event: MouseEvent<HTMLInputElement>) => {
+      updateSelectedPrefectures(Number(event.currentTarget.value), event.currentTarget.name, event.currentTarget.checked);
+      if (event.currentTarget.checked) addData(Number(event.currentTarget.value), event.currentTarget.name);
+    },
+    [addData, updateSelectedPrefectures],
+  );
 
   useEffect(() => {
     axios

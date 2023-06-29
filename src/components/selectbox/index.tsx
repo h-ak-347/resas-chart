@@ -1,4 +1,4 @@
-import type { MouseEvent} from 'react';
+import type { MouseEvent } from 'react';
 import { useState } from 'react';
 
 import s from './index.module.scss';
