@@ -1,5 +1,4 @@
 import { Box, ChakraProvider, Heading } from '@chakra-ui/react';
-import axios from 'axios';
 import type { MouseEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -8,6 +7,7 @@ import SelectBox from './components/selectbox';
 import { mergeData } from './functions/merge-data/index.ts';
 import type { ChartData } from './types/chart-data';
 import type { ResasApiData } from './types/resas-api-data.ts';
+import axiosInstance from './utils/axios-instance.ts';
 
 const App = () => {
   const defaultPrefectures = useMemo(
@@ -26,9 +26,7 @@ const App = () => {
   const fetchPrefectureList = useCallback(async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.get('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
-        headers: { 'X-API-KEY': import.meta.env.VITE_RESAS_API_KEY },
-      });
+      const { data } = await axiosInstance.get('/prefectures');
       setPrefectures(data.result);
     } catch (error) {
       console.error('Failed to fetch data:', error);
@@ -40,9 +38,7 @@ const App = () => {
   const fetchPopulationData = useCallback(async (prefCode: number, prefName: string) => {
     try {
       setIsLoading(true);
-      const { data } = await axios.get(`https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=${prefCode}`, {
-        headers: { 'X-API-KEY': import.meta.env.VITE_RESAS_API_KEY },
-      });
+      const { data } = await axiosInstance.get(`/population/composition/perYear?prefCode=${prefCode}`);
       const additionalData: ResasApiData = data.result.data[0].data;
       setChartData((previousData) => mergeData(prefName, additionalData, previousData));
     } catch (error) {
