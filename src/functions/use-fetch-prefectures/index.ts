@@ -19,11 +19,11 @@ export const useFetchPrefectures = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [setPrefectures]);
 
   useEffect(() => {
     fetchPrefectures();
-  }, []);
+  }, [fetchPrefectures]);
 
   return;
 };

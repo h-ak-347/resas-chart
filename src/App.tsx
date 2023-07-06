@@ -20,7 +20,6 @@ const App = () => {
   const chartData = useAtomValue(globalChartData);
 
   const { addSelectedPrefectures, removeSelectedPrefectures } = useSelectedPrefectures();
-  const { fetchNAddPopulationData } = useFetchPopulationData();
 
   useFetchPrefectures();
   useFetchPopulationData();
@@ -32,9 +31,8 @@ const App = () => {
       } else {
         removeSelectedPrefectures(Number(event.currentTarget.value));
       }
-      fetchNAddPopulationData(Number(event.currentTarget.value), event.currentTarget.name);
     },
-    [addSelectedPrefectures, fetchNAddPopulationData, removeSelectedPrefectures],
+    [addSelectedPrefectures, removeSelectedPrefectures],
   );
 
   return (
