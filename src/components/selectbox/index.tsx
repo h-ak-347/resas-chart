@@ -1,16 +1,30 @@
 import type { MouseEvent } from 'react';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
+import { useSelectedPrefectures } from '../../functions/use-selected-prefectures';
 import s from './index.module.scss';
 
 type SelectBoxProps = {
   selectedPrefectures: { prefCode: number; prefName: string }[];
   prefectures: { prefCode: number; prefName: string }[];
-  clickHandler?: (event: MouseEvent<HTMLInputElement>) => void;
 };
 
-const SelectBox = ({ selectedPrefectures, prefectures, clickHandler }: SelectBoxProps) => {
+const SelectBox = ({ selectedPrefectures, prefectures }: SelectBoxProps) => {
   const [isModalShow, setIsModalShow] = useState<boolean>(false);
+  const { addSelectedPrefectures, removeSelectedPrefectures } = useSelectedPrefectures();
+
+  //TODO: データ更新の発火はここに書いてあっていいのか、Reviewがほしい
+  const clickHandler = useCallback(
+    (event: MouseEvent<HTMLInputElement>) => {
+      if (event.currentTarget.checked) {
+        addSelectedPrefectures(Number(event.currentTarget.value), event.currentTarget.name);
+      } else {
+        removeSelectedPrefectures(Number(event.currentTarget.value));
+      }
+    },
+    [addSelectedPrefectures, removeSelectedPrefectures],
+  );
+
   return (
     <div className={s['selectBox']}>
       <button type="button" className={s['selectBox__toggleButton']} onClick={() => setIsModalShow(true)}>
