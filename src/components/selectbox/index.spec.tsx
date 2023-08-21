@@ -17,7 +17,6 @@ const mockDefaultProps: React.ComponentProps<typeof SelectBox> = {
       prefName: '青森県',
     },
   ],
-  clickHandler: jest.fn(),
 };
 
 describe('SelectBox', () => {
