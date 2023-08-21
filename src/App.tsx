@@ -1,23 +1,25 @@
 import { Box, ChakraProvider, Heading } from '@chakra-ui/react';
 import { useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 
 import Chart from './components/chart';
 import SelectBox from './components/selectbox';
 import { useFetchPopulationData } from './functions/use-fetch-population-data/index.ts';
 import { useFetchPrefectures } from './functions/use-fetch-prefectures/index.ts';
-import globalChartData from './jotai/global-chart-data.ts';
 import globalIsLoading from './jotai/global-is-loading.ts';
-import globalPrefectures from './jotai/global-prefectures.ts';
 import globalSelectedPrefectures from './jotai/global-selected-prefectures.ts';
 
 const App = () => {
   const isLoading = useAtomValue(globalIsLoading);
-  const prefectures = useAtomValue(globalPrefectures);
   const selectedPrefectures = useAtomValue(globalSelectedPrefectures);
-  const chartData = useAtomValue(globalChartData);
 
-  useFetchPrefectures();
-  useFetchPopulationData();
+  const { prefectures, fetchPrefectures } = useFetchPrefectures();
+  const { chartData, fetchNAddPopulationData } = useFetchPopulationData();
+
+  useEffect(() => {
+    fetchPrefectures();
+    fetchNAddPopulationData(selectedPrefectures);
+  }, [fetchNAddPopulationData, fetchPrefectures, selectedPrefectures]);
 
   return (
     <ChakraProvider>
