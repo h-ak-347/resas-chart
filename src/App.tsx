@@ -6,13 +6,12 @@ import Chart from './components/chart';
 import SelectBox from './components/selectbox';
 import { useFetchPopulationData } from './functions/use-fetch-population-data/index.ts';
 import { useFetchPrefectures } from './functions/use-fetch-prefectures/index.ts';
-import globalIsLoading from './jotai/global-is-loading.ts';
+import { useIsLoading } from './functions/use-is-loading/index.ts';
 import globalSelectedPrefectures from './jotai/global-selected-prefectures.ts';
 
 const App = () => {
-  const isLoading = useAtomValue(globalIsLoading);
   const selectedPrefectures = useAtomValue(globalSelectedPrefectures);
-
+  const { isLoading } = useIsLoading();
   const { prefectures, fetchPrefectures } = useFetchPrefectures();
   const { chartData, fetchNAddPopulationData } = useFetchPopulationData();
 

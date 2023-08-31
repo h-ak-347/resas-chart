@@ -7,22 +7,30 @@ import type { Prefectures } from '../../types/prefectures';
 import type { ResasApiData } from '../../types/resas-api-data';
 import axiosInstance from '../../utils/axios-instance';
 import { mergeData } from '../merge-data';
+import { useIsLoading } from '../use-is-loading';
 
 export const useFetchPopulationData = () => {
   const [chartData, setChartData] = useAtom(globalChartData);
+  const { addLoadingItem, removeLoadingItem } = useIsLoading();
 
-  const fetchPopulationData = useCallback(async (prefecture: Prefectures[number]) => {
-    let fetchedData: { prefName: string; populationData: ResasApiData };
+  const fetchPopulationData = useCallback(
+    async (prefecture: Prefectures[number]) => {
+      let fetchedData: { prefName: string; populationData: ResasApiData };
 
-    try {
-      const { data } = await axiosInstance.get(`/population/composition/perYear?prefCode=${prefecture.prefCode}`);
-      const additionalData: ResasApiData = data.result.data[0].data;
-      fetchedData = { prefName: prefecture.prefName, populationData: additionalData };
-      return fetchedData;
-    } catch (error) {
-      return new Error('Failed to fetch data');
-    }
-  }, []);
+      try {
+        addLoadingItem('population');
+        const { data } = await axiosInstance.get(`/population/composition/perYear?prefCode=${prefecture.prefCode}`);
+        const additionalData: ResasApiData = data.result.data[0].data;
+        fetchedData = { prefName: prefecture.prefName, populationData: additionalData };
+        return fetchedData;
+      } catch (error) {
+        return new Error('Failed to fetch data');
+      } finally {
+        removeLoadingItem('population');
+      }
+    },
+    [addLoadingItem, removeLoadingItem],
+  );
 
   const fetchNAddPopulationData = useCallback(
     (prefectures: Prefectures) => {
@@ -38,7 +46,6 @@ export const useFetchPopulationData = () => {
 
         if (index === prefectures.length - 1) {
           setChartData(updateData);
-          console.log(updateData);
         }
       });
     },
